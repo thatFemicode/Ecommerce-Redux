@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectedProducts,
+  fetchProduct,
   removeSelectedProduct,
 } from "../redux/actions/productActions";
 import axios from "axios";
@@ -18,18 +18,18 @@ const ProductDetail = () => {
   const dispatch = useDispatch();
   console.log(productId);
 
-  const fetchProductDetail = async () => {
-    const response = await axios.get(`${url}/${productId}`).catch((err) => {
-      console.log("Err: ", err);
-    });
-    // console.log(dispatch, selectedProducts);
-    // dispatch(selectedProducts(response.data));
-    dispatch(selectedProducts(response.data));
-    console.log(response.data);
-  };
+  // const fetchProductDetail = async () => {
+  //   const response = await axios.get(`${url}/${productId}`).catch((err) => {
+  //     console.log("Err: ", err);
+  //   });
+  //   // console.log(dispatch, selectedProducts);
+  //   // dispatch(selectedProducts(response.data));
+  //   dispatch(selectedProducts(response.data));
+  //   console.log(response.data);
+  // };
   useEffect(() => {
     if (productId && productId !== "") {
-      fetchProductDetail();
+      dispatch(fetchProduct(productId));
     }
     return () => {
       dispatch(removeSelectedProduct());
